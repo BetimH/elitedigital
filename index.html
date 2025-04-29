@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body id="body">
+    <nav id="navbar">
+     <button id="open-btn" onclick="openfunction()"></button>
+     <button id="close-btn" onclick="closefunction()"></button>
+    <img src="logo.jpeg" alt="Logo" id="logo" itemid="logo">
+     <select id="language-selector" onchange="changeLanguage()">
+        <option value="en">En</option>
+        <option value="al">Al</option>
+        <option value="mk">Mk</option>
+    </select>
+    <header id="header">
+        <a href id="links-header">Menu</a>
+        <a href id="links-header1" style="border-right: none;">Contact</a>
+    </header>
+    </nav>
+  
+    <aside id="sidebar">
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        
+        <div id="sidebar-content">
+            <p>09:00 - 02:00</p>
+            <img src="logo.jpeg" alt="Logo" id="logo">
+            <h2>Thank You!</h2>
+         </div>      
+    </aside>
+
+    <div id="content">
+        <a href="pizza.html">
+        <div class="card1">
+            <h2>Pizza</h2>
+        </div>
+    </a>  
+
+    <a href="">
+        <div class="card2">
+            <h2>Skara</h2>
+        </div>
+    </a> 
+
+        <a href="">
+        <div class="card3">
+            <h2>Pije</h2>
+        </div>
+    </a> 
+
+        <a href="">
+        <div class="card4">
+            <h2>Desert</h2>
+        </div>
+    </a> 
+        
+    </div>
+    <footer id="footer">
+        <p>&copy; 2023 Elitte. All rights reserved.</p>
+    </footer>
+</body>
+<script src="index.js"></script>
+</html>
