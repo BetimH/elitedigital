@@ -1,6 +1,6 @@
 function openfunction(){
     document.getElementById("sidebar").style.display = "block";
-    document.getElementById("sidebar").style.width = "200px";
+    document.getElementById("sidebar").style.width = "240px";
     document.getElementById("sidebar").style.padding = "20px";
     document.getElementById("open-btn").style.display = "none";
     document.getElementById("close-btn").style.display = "block";
