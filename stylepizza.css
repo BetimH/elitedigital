@@ -164,6 +164,7 @@ aside ul li a{
         transform: zoom(50%);
 
     }
+
     .price{
         color: #fff;
         margin-top: 1rem;
@@ -213,4 +214,53 @@ aside ul li a{
         padding: 0.2rem;
         font-size: 0.5rem;
         color: white;
+    }
+ 
+
+    .extras{
+        width: 100%;
+        height: 150vh;
+        background-color: #333;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+    }
+    .extras div{
+        width: 70%;
+        height: 10vh;
+        border-radius: 10px;
+        background-color: gainsboro;
+        margin: 1rem auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 1rem;
+    }
+    .extras h1{
+        color: #f4f4f4;
+        font-size: 2rem;
+        text-align: center;
+        margin: 0;
+        padding: 0rem;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    .extras h3{
+        color: #333;
+        font-size: 1rem;
+        text-align: center;
+        margin: 0;
+        text-transform: capitalize;
+    }
+    .extras p{
+        color: #f4f4f4;
+        font-size: 0.7rem;
+        font-weight:bold ;
+        text-align: center;
+        margin: 0;
+        padding: 0.3rem;
+        background-color: #333;
+        border-radius: 10px;
     }
