@@ -5,23 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="drinks.css">
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-3LRBYZ7FR8"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-VE7QFJENW2');
-</script>
 </head>
 <body>
     <nav id="navbar">
         <button id="go-back-btn" onclick="goBack()"></button>
-        <h1>Pije</h1>
+        <h1 data-i18n="pije">Pije</h1>
         <select id="language-selector" onchange="changeLanguage()">
            <option value="en">En</option>
-           <option value="al">Al</option>
+           <option value="sq" selected>Sq</option>
            <option value="mk">Mk</option>
        </select>
        </nav>
@@ -33,30 +24,30 @@
 
        <div class="teNgrohta">
             <img src="imgs/hotDrink.png" alt="pije">
-            <h1>Pije te ngrohta</h1>
+            <h1 data-i18n="pijetengrohta">Pije te ngrohta</h1>
         <div class="article1">
-            <h3>Espresso</h3>
-            <p> 50den</p>
+            <h3 data-i18n="espreso"> Espresso</h3>
+            <p> 40den</p>
         </div>
         <div class="article2">
-            <h3>Makiato</h3>
-            <p> 50den</p>
+            <h3 data-i18n="makiato">Makiato</h3>
+            <p> 40den</p>
         </div>
         <div class="article3">
-            <h3>Çaj i nxeht</h3>
+            <h3 data-i18n="cajinxehte">Çaj i nxeht</h3>
             <p> 40den</p>
         </div>
         <div class="article4">
-            <h3>Qumesht</h3>
+            <h3 data-i18n="qumesht">Qumesht</h3>
             <p> 50den</p> 
         </div>
         <div class="article5">
-            <h3>Kakao</h3>
+            <h3 data-i18n="kakao">Kakao</h3>
             <p> 50den</p> 
         </div>
         <div class="article6">
-            <h3>Kafe e bardhe</h3>
-            <p> 60den</p> 
+            <h3 data-i18n="kafeebardhe">Kafe e bardhe</h3>
+            <p> 50den</p> 
         </div>
         <p style="color: gray; background-color: transparent;">Hot drinks</p>
     </div>
@@ -70,41 +61,41 @@
 
     <div class="pijeJoAlkoolike">
             <img src="imgs/pije.png" alt="pije">
-            <h1>Pije Jo Alkoolike</h1>
+            <h1 data-i18n="pijejoalkoolike">Pije Jo Alkoolike</h1>
         <div class="article1">
-            <h3>Coca Cola</h3>
+            <h3 data-i18n="cocacola">Coca Cola</h3>
             <p>70den</p>
         </div>
         <div class="article2">
-            <h3>Fanta Orange</h3>
+            <h3 data-i18n="fantaorange">Fanta Orange</h3>
             <p> 70den</p>
         </div>
         <div class="article3">
-            <h3>Fanta Shokata</h3>
+            <h3 data-i18n="fantashokata">Fanta Shokata</h3>
             <p> 70den</p>
         </div>
         <div class="article4">
-            <h3>Schweppes</h3>
+            <h3 data-i18n="schweppes">Schweppes</h3>
             <p> 70den</p> 
         </div>
         <div class="article5">
-            <h3>Schweppes Tonic</h3>
+            <h3 data-i18n="schweppestonic">Schweppes Tonic</h3>
             <p> 70den</p> 
         </div>
         <div class="article6">
-            <h3>Sprite</h3>
+            <h3 data-i18n="sprite">Sprite</h3>
             <p> 70den</p> 
         </div>
           <div class="article7">
-            <h3>Cockta</h3>
+            <h3 data-i18n="cockta">Cockta</h3>
             <p> 70den</p> 
         </div>
           <div class="article8">
-            <h3>Uje me gaz 0,25L/0,75L</h3>
+            <h3 data-i18n="ujmegaz">Uje me gaz 0,25L/0,75L</h3>
             <p> 50/100den</p> 
             </div>
           <div class="article9">
-            <h3>Uje pa gaz 0,25L/0,75L</h3>
+            <h3 data-i18n="ujpagaz"> Uje pa gaz 0,25L/0,75L</h3>
             <p> 50/100den</p> 
         </div>
         <p style="color: gray; background-color: transparent;">non-alcoolic drinks</p>
@@ -120,37 +111,38 @@
 
         <div class="lengjePemesh">
             <img src="imgs/lengje.png" alt="pije">
-            <h1>lengje pemesh</h1>
+            <h1 data-i18n="lengjepemesh">lengje pemesh</h1>
         <div class="article1">
-            <h3>Pjeshke 0,2l</h3>
+            <h3 data-i18n="pjeshke">Pjeshke 0,2l</h3>
             <p> 70den</p>
         </div>
         <div class="article2">
-            <h3>Multi Vitamin 0,2l</h3>
+            <h3 data-i18n="multivitamin">Multi Vitamin 0,2l</h3>
             <p> 70den</p>
         </div>
         <div class="article3">
-            <h3>Vishnje 0,2l</h3>
+            <h3 data-i18n="vishnje">Vishnje 0,2l</h3>
             <p> 70den</p>
         </div>
         <div class="article4">
-            <h3>Mollë 0,2l</h3>
+            <h3 data-i18n="molle">Mollë 0,2l</h3>
             <p> 70den</p> 
         </div>
         <div class="article5">
-            <h3>Juice 0,2l</h3>
+            <h3 data-i18n="juice">Juice 0,2l</h3>
             <p> 70den</p> 
         </div>
         <div class="article6">
-            <h3>Ice Tea 0,2l</h3>
+            <h3 data-i18n="icetea">Ice Tea 0,2l</h3>
+            
             <p> 70den</p> 
         </div>
           <div class="article7">
-            <h3>Limonade</h3>
+            <h3 data-i18n="limonade">Limonade</h3>
             <p> 50/80den</p> 
         </div>
           <div class="article8">
-            <h3>boronice</h3>
+            <h3 data-i18n="boronice">boronice</h3>
             <p> 50/80den</p> 
             </div>
          
