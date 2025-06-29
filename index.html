@@ -1,31 +1,23 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
-    <meta name="google-site-verification" content="khgSaSSpjOI0p7jBN2T8pCBWKSGnfrQmY0rcd-m_-J4" />
+
 
     <link rel="icon" href="logo.jpeg" type="image/x-icon">
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-3LRBYZ7FR8"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-VE7QFJENW2');
-</script>
+  
 </head>
 <body id="body">
     <nav id="navbar">
      <button id="open-btn" onclick="openfunction()"></button>
      <button id="close-btn" onclick="closefunction()"></button>
     <img src="logo.jpeg" alt="Logo" id="logo" itemid="logo">
-     <select id="language-selector" onchange="changeLanguage()">
+     <select id="language-selector" onchange="changeLanguage(this.value)">
         <option value="en">En</option>
-        <option value="al">Al</option>
+        <option value="sq" selected>Sq</option>
         <option value="mk">Mk</option>
     </select>
     <header id="header">
@@ -39,7 +31,7 @@
             <li><a href="#home"><img src="imgs/home.jpg">Home</a></li>
             <li><a href="#about"><img src="imgs/about.png">About</a></li>
             <li><a href="#services"><img src="imgs/services.jpg">Services</a></li>
-            <li><a href="#contact"><img src="imgs/contact.png">Contact</a></li>
+            <li><a href="#contact"><img src="imgs/contact.png" data-i18n="contact">Contact</a></li>
         </ul>
         
         <div id="sidebar-content">
@@ -47,41 +39,41 @@
             <br>
           
             <p>09:00 - 02:00</p>
-            <h2>Thank You!</h2>
+            <h2 data-i18n="thankyou">Thank You!</h2>
             <br>
   
-            <p class="credit">powered by: Betim Hasani</p>
+            <p class="credit" data-i18n="poweredby">powered by: Betim Hasani</p>
          </div>      
     </aside>
 
     <div id="content">
         <a href="pizza.html">
         <div class="card1">
-            <h2>Pizza</h2>
+            <h2 data-i18n="pizza">Pizza</h2>
         </div>
     </a>  
 
     <a href="skara.html"> 
         <div class="card2">
-            <h2>Skara</h2>
+            <h2 data-i18n="skara">Skara</h2>
         </div>
     </a> 
 
         <a href="drinks.html">
         <div class="card3">
-            <h2>Pije</h2>
+            <h2 data-i18n="pije">Pije</h2>
         </div>
     </a> 
 
         <a href="desert.html">
         <div class="card4">
-            <h2>Desert</h2>
+            <h2 data-i18n="dessert">Desert</h2>
         </div>
     </a> 
         
     </div>
     <footer id="footer">
-        <p>&copy; 2023 Elitte. All rights reserved.</p>
+        <p data-i18n="rights"> &copy; 2023 Elitte. All rights reserved.</p>
     </footer>
 </body>
 <script src="index.js"></script>
