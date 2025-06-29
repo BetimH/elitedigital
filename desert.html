@@ -5,23 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="desert.css">
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-3LRBYZ7FR8"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-VE7QFJENW2');
-</script>
 </head>
 <body>
     <nav id="navbar">
         <button id="go-back-btn" onclick="goBack()"></button>
-        <h1>Desert</h1>
+        <h1 data-i18n="dessert">Desert</h1>
         <select id="language-selector" onchange="changeLanguage()">
            <option value="en">En</option>
-           <option value="al">Al</option>
+           <option value="sq" selected>Sq</option>
            <option value="mk">Mk</option>
        </select>
        </nav>
@@ -38,32 +30,32 @@
         <br>
         <br>
         <img src="imgs/embelsire.png" alt="embelsire" id="grill">
-        <h1>Dessert</h1>
+        <h1 data-i18n="dessert">Dessert</h1>
         <br>
         <button id="c1" onclick(open)>
         <img src="imgs/trileqe.jpg">
-        <h2>Trileçe</h2>
+        <h2 data-i18n="trilece">Trileçe</h2>
        
         <p class="price">50den</p>
         </button>
         
         <button id="c2" onclick(open)>
             <img src="imgs/embelsireShtepie.jpg">
-            <h2>Ëmbëlsirë Shtëpie</h2>
+            <h2 data-i18n="embelsireshtepie">Ëmbëlsirë Shtëpie</h2>
            
             <p class="price">50den</p>
             </button>
 
             <button id="c3" onclick(open)>
             <img src="imgs/kadaif.jpg">
-            <h2>Krem me Kadaif </h2>
+            <h2 data-i18n="kremmekadaif">Krem me Kadaif </h2>
             
             <p class="price">60den</p>
             </button>
 
             <button id="c4" onclick(open)>
             <img src="imgs/kremBrule.png">
-            <h2>Krem Brule</h2>
+            <h2 data-i18n="krembrule">Krem Brule</h2>
             <p class="price">80den</p>
             </button>
             
