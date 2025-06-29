@@ -5,15 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="stylepizza.css">
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-3LRBYZ7FR8"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-VE7QFJENW2');
-</script>
+    
 </head>
 <body>
     <nav id="navbar">
@@ -21,8 +13,8 @@
         <h1>Pizza</h1>
         <select id="language-selector" onchange="changeLanguage()">
            <option value="en">En</option>
-           <option value="al">Al</option>
-           <option value="mk">Mk</option>
+           <option value="sq" selected>Sq</option>
+           <option value="mk">mk</option>
        </select>
     
        </nav>
@@ -40,45 +32,45 @@
 
         <button id="c1" onclick(open)>
         <img src="imgs/elite.jpg">
-        <h2>Elite
+        <h2 data-i18n="elite">Elite
             </h2>
-        <p class="article">(Domate, djath, kepurdha, suxhuk mish te that, ullinje, veze)</p>
+        <p class="article" data-i18n="article0">(Domate, djath, kepurdha, suxhuk mish te that, ullinje, veze)</p>
         <p class="price">300/150den</p>
         </button>
         
         <button id="c2" onclick(open)>
             <img src="imgs/margarita.jpg">
-            <h2>Margarita</h2>
-            <p class="article">(Domate, djath)</p>
-            <p class="price">240/140den</p>
+            <h2 data-i18n="margarita">Margarita</h2>
+            <p class="article" data-i18n="article1">(Domate, djath)</p>
+            <p class="price">300/150den</p>
             </button>
 
             <button id="c3" onclick(open)>
             <img src="imgs/fungi.jpg">
-            <h2>Fungi</h2>
-            <p class="article"> (Domate, djath, kepurdha)</p>
-            <p class="price">260/150den</p>
+            <h2 data-i18n="fungi">Fungi</h2>
+            <p class="article" data-i18n="article2"> (Domate, djath, kepurdha)</p>
+            <p class="price">300/150den</p>
             </button>
 
             <button id="c4" onclick(open)>
             <img src="imgs/tuna.jpg">
-            <h2>Tono</h2>
-            <p class="article">(Domate, djath, tuna,qepe)</p>
-            <p class="price">280/150den</p>
+            <h2 data-i18n="tono"> Tono</h2>
+            <p class="article" data-i18n="article3">(Domate, djath, tuna,qepe)</p>
+            <p class="price">300/150den</p>
             </button>
 
             <button id="c5" onclick(open)>
             <img src="imgs/proshuto.jpg">
-            <h2>Proshuto</h2>
-            <p class="article">(Domate, djath, proshute)</p>
-            <p class="price">280/150den</p>
+            <h2 data-i18n="proshuto">Proshuto</h2>
+            <p class="article" data-i18n="article4">(Domate, djath, proshute)</p>
+            <p class="price">300/150den</p>
             </button>
 
             <button id="c6" onclick(open)>
             <img src="imgs/salameti.jpg">
-            <h2>sallameti</h2>
-            <p class="article"> (Domate, djath, suxhuk)</p>
-            <p class="price">280/150den</p>
+            <h2 data-i18n="sallameti">sallameti</h2>
+            <p class="article" data-i18n="article5"> (Domate, djath, suxhuk)</p>
+            <p class="price">300/150den</p>
             </button>
             
       
@@ -86,69 +78,69 @@
             <button id="c7" onclick(open)>
             <img src="imgs/calabrese.jpg">
             <h2>Calabrese</h2>
-            <p class="article">(Domate, djath, kepurdha, suxhuk/mish te thate)</p>
-            <p class="price">290/150den</p>
+            <p class="article" data-i18n="article6">(Domate, djath, kepurdha, suxhuk/mish te thate)</p>
+            <p class="price">300/150den</p>
             </button>
 
             <button id="c8" onclick(open)>
             <img src="imgs/toscana.png">
-            <h2>Toscana</h2>
-            <p class="article">(Domate, djath, mish te thate) </p>
-            <p class="price">280/150den</p>
+            <h2 data-i18n="toscana">Toscana</h2>
+            <p class="article" data-i18n="article7">(Domate, djath, mish te thate) </p>
+            <p class="price">300/150den</p>
             </button>
 
             <button id="c9" onclick(open)>
             <img src="imgs/vesuvio.jpg">
-            <h2>Vesuvio</h2>
-            <p class="article">(Domate, djath, kepurdha, suxhuk)</p>
-            <p class="price">280/150den</p>
+            <h2 data-i18n="vesuvio">Vesuvio</h2>
+            <p class="article" data-i18n="article8">(Domate, djath, kepurdha, suxhuk)</p>
+            <p class="price">300/150den</p>
             </button>
 
             <button id="c10" onclick(open)>
                 <img src="imgs/roma.jpg">
-                <h2>Roma</h2>
-                <p class="article">(Domate, djath, kepurdha, mish te thate)</p>
-                <p class="price">280/150den</p>
+                <h2 data-i18n="roma">Roma</h2>
+                <p class="article" data-i18n="article9">(Domate, djath, kepurdha, mish te thate)</p>
+                <p class="price">300/150den</p>
                 </button>
                 
         </div>
         <div class="extras">
-            <h1>Ekstra</h1>
+            <h1 data-i18n="ekstra">Ekstra</h1>
             <div class="article1">
-                <h3>majonez</h3>
+                <h3 data-i18n="majonez">majonez</h3>
                 <p>20den</p>
             </div>
             <div class="article2">
-                  <h3>ullinj</h3>
+                  <h3 data-i18n="ullinj">ullinj</h3>
                 <p>50den</p>
             </div>
             <div class="article3">
-                  <h3>veze</h3>
+                  <h3 data-i18n="veze">veze</h3>
                 <p>10den</p>
             </div>
             <div class="article4">
-                  <h3>djath</h3>
+                  <h3 data-i18n="djath">djath</h3>
                 <p>30/60den</p>
             </div>
             <div class="article5">
-                  <h3>tuna shtese</h3>
+                  <h3 data-i18n="tunashtese">tuna shtese</h3>
                 <p>60den</p>
             </div>
             <div class="article6">
-                  <h3>proshuto shtese</h3>
+                  <h3 data-i18n="proshutoshtese">proshuto shtese</h3>
                 <p>50den</p>
             </div>
             <div class="article7">
-                  <h3>soxhuk shtese</h3>
+                  <h3 data-i18n="soxhukshtese">soxhuk shtese</h3>
                 <p>50den</p>
             </div>
             <div class="article8">
-                  <h3>kepurdha shtese</h3>
+                  <h3 data-i18n="kepurdhashtese">kepurdha shtese</h3>
                 <p>40den</p>
             </div>
         </div>
         <footer>
-            <p>&copy; 2023 Elitte. All rights reserved.</p>
+            <p data-i18n="rightss">&copy; 2023 Elitte. All rights reserved.</p>
         </footer>
 </body>
 <script src="index.js"></script>
