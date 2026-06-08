@@ -1,80 +1,684 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sq">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Elite — Menu Digjital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --border: #2a2a2a;
+      --accent: #c8a96e;
+      --text: #f0ece4;
+      --text-muted: #8a8278;
+      --text-dim: #5a5652;
+    }
 
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    <link rel="icon" href="logo.jpeg" type="image/x-icon">
-  
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+    }
+
+    /* ══ STICKY TAB BAR ══ */
+    #sticky-tabs {
+      position: sticky; top: 0; z-index: 200;
+      background: rgba(10,10,10,0.95);
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.7rem 1rem;
+      transform: translateY(-110%); opacity: 0;
+      transition: transform 0.28s ease, opacity 0.28s ease;
+      pointer-events: none;
+    }
+    #sticky-tabs.visible { transform: translateY(0); opacity: 1; pointer-events: all; }
+
+    .tab-nav {
+      display: flex; gap: 0.5rem;
+      overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+    }
+    .tab-nav::-webkit-scrollbar { display: none; }
+    .hero-tab-nav { flex-wrap: wrap; justify-content: center; }
+
+    .tab-btn {
+      background: transparent; border: 1px solid var(--border); border-radius: 999px;
+      color: var(--text-muted); font-family: 'Inter', sans-serif;
+      font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em;
+      padding: 0.55rem 1.4rem; cursor: pointer; transition: all 0.2s ease;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .tab-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .tab-btn.active { background: var(--accent); border-color: var(--accent); color: #0a0a0a; font-weight: 600; }
+
+    /* ══ HERO ══ */
+    .hero {
+      min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 2rem 1rem 4rem;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 70% 50% at 50% 30%, rgba(200,169,110,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 20% 80%, rgba(192,57,43,0.05) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-logo-ring {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: linear-gradient(135deg, #1e1a14 0%, #2a2218 100%);
+      border: 1.5px solid var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 2rem; box-shadow: 0 0 32px rgba(200,169,110,0.15);
+    }
+    .hero-logo-letter { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--accent); line-height: 1; }
+    .hero-tag { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-muted); border: 1px solid var(--border); border-radius: 999px; padding: 0.35rem 1rem; margin-bottom: 2rem; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem,10vw,6rem); font-weight: 700; color: var(--text); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
+    .hero-sub { font-size: 0.85rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1.5rem; }
+    .hero-currency { font-size: 0.75rem; color: var(--text-dim); letter-spacing: 0.1em; margin-bottom: 3rem; }
+    .hero-divider { width: 60px; height: 1px; background: linear-gradient(90deg, transparent, var(--accent), transparent); margin: 0 auto 3rem; }
+    .hero-welcome { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--text-muted); margin-bottom: 2.5rem; }
+    .hero-title2 { font-family: 'Playfair Display', serif; font-size: clamp(1.4rem,4vw,2rem); font-weight: 600; color: var(--text); max-width: 520px; margin: 0 auto 1.25rem; line-height: 1.3; }
+    .hero-desc { font-size: 0.92rem; color: var(--text-muted); line-height: 1.7; max-width: 440px; margin: 0 auto 3rem; }
+
+    /* ══ MENU SECTIONS ══ */
+    .menu-section { display: none; max-width: 720px; margin: 0 auto; padding: 0 1rem 6rem; animation: fadeUp 0.35s ease both; }
+    .menu-section.active { display: block; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+
+    .section-header { text-align: center; padding: 3rem 0 2.5rem; }
+    .section-header h2 { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 700; color: var(--text); margin-bottom: 0.4rem; }
+    .section-header p { font-size: 0.8rem; color: var(--text-dim); letter-spacing: 0.12em; text-transform: uppercase; }
+    .section-divider { width: 40px; height: 1px; background: var(--accent); margin: 1rem auto 0; opacity: 0.6; }
+
+    .cat-heading { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); border-bottom: 1px solid var(--border); padding-bottom: 0.75rem; margin: 2.5rem 0 1.5rem; }
+
+    /* ══ MENU ITEM ══ */
+    .menu-item {
+      display: flex; align-items: flex-start;
+      justify-content: space-between; gap: 1rem;
+      padding: 1.25rem 0; border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    .menu-item:last-child { border-bottom: none; }
+    .item-info { flex: 1; min-width: 0; }
+    .item-name { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 0.3rem; }
+    .item-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
+
+    .item-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    .item-price { font-size: 0.88rem; font-weight: 600; color: var(--accent); white-space: nowrap; }
+
+    /* ══ AR BUTTON ══ */
+    .ar-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      background: rgba(200,169,110,0.08);
+      border: 1px solid rgba(200,169,110,0.25);
+      border-radius: 999px;
+      padding: 0.28rem 0.65rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      color: var(--accent);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .ar-btn:hover {
+      background: rgba(200,169,110,0.16);
+      border-color: var(--accent);
+      box-shadow: 0 0 12px rgba(200,169,110,0.15);
+      color: var(--accent);
+    }
+    .ar-btn:active { transform: scale(0.96); }
+
+    /* AR icon — CSS-drawn cube */
+    .ar-icon {
+      width: 14px; height: 14px;
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .ar-icon svg { width: 14px; height: 14px; }
+
+    /* Hidden model-viewer instances */
+    model-viewer.ar-model { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
+
+    /* ══ FOOTER ══ */
+    footer { text-align: center; border-top: 1px solid var(--border); padding: 2rem 1rem; }
+    .footer-logo { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg,#1e1a14,#2a2218); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; }
+    .footer-logo span { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--accent); }
+    .footer-copy { font-size: 0.75rem; color: var(--text-dim); }
+    .lovable-badge { display: inline-block; margin-top: 1rem; font-size: 0.7rem; color: var(--text-dim); text-decoration: none; border: 1px solid var(--border); border-radius: 6px; padding: 0.3rem 0.7rem; transition: border-color 0.2s; }
+    .lovable-badge:hover { border-color: var(--accent); color: var(--accent); }
+  </style>
 </head>
-<body id="body">
-    <nav id="navbar">
-     <button id="open-btn" onclick="openfunction()"></button>
-     <button id="close-btn" onclick="closefunction()"></button>
-    <img src="logo.jpeg" alt="Logo" id="logo" itemid="logo">
-     <select id="language-selector" onchange="changeLanguage(this.value)">
-        <option value="en">En</option>
-        <option value="sq" selected>Sq</option>
-        <option value="mk">Mk</option>
-    </select>
-    <header id="header">
-        <a href id="links-header">Menu</a>
-        <a href id="links-header1" style="border-right: none;">Contact</a>
-    </header>
-    </nav>
-  
-    <aside id="sidebar">
-        <ul>
-            <li><a href="#home"><img src="imgs/home.jpg">Home</a></li>
-            <li><a href="#about"><img src="imgs/about.png">About</a></li>
-            <li><a href="#services"><img src="imgs/services.jpg">Services</a></li>
-            <li><a href="#contact"><img src="imgs/contact.png" data-i18n="contact">Contact</a></li>
-        </ul>
-        
-        <div id="sidebar-content">
-            <img src="logo.jpeg" alt="Logo" id="logo">
-            <br>
-          
-            <p>09:00 - 02:00</p>
-            <h2 data-i18n="thankyou">Thank You!</h2>
-            <br>
-  
-            <p class="credit" data-i18n="poweredby">powered by: Betim Hasani</p>
-         </div>      
-    </aside>
+<body>
 
-    <div id="content">
-        <a href="pizza.html">
-        <div class="card1">
-            <h2 data-i18n="pizza">Pizza</h2>
-        </div>
-    </a>  
+<!-- ══════════ STICKY TAB BAR ══════════ -->
+<div id="sticky-tabs" aria-hidden="true">
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="showTab('pizza')">Pizza</button>
+    <button class="tab-btn" onclick="showTab('skara')">Skara</button>
+    <button class="tab-btn" onclick="showTab('pije')">Pije</button>
+    <button class="tab-btn" onclick="showTab('embelsira')">Ëmbëlsira</button>
+  </div>
+</div>
 
-    <a href="skara.html"> 
-        <div class="card2">
-            <h2 data-i18n="skara">Skara</h2>
-        </div>
-    </a> 
+<!-- ══════════════ HERO ══════════════ -->
+<section class="hero" id="hero">
+  <div class="hero-logo-ring"><span class="hero-logo-letter">E</span></div>
+  <div class="hero-tag">Menu Digjital</div>
+  <h1>Elite</h1>
+  <p class="hero-sub">Menu Digjital</p>
+  <p class="hero-currency">Çmimet në denarë</p>
+  <div class="hero-divider"></div>
+  <p class="hero-welcome">Mirë se vini</p>
+  <p class="hero-title2">Shijoni një koleksion shijesh të zgjedhura</p>
+  <p class="hero-desc">Nga pica artizanale te skara në thëngjill — çdo recetë është përgatitur me kujdes në kuzhinën tonë.</p>
+  <div class="tab-nav hero-tab-nav" role="tablist">
+    <button class="tab-btn active" onclick="showTab('pizza')" role="tab">Pizza</button>
+    <button class="tab-btn" onclick="showTab('skara')" role="tab">Skara</button>
+    <button class="tab-btn" onclick="showTab('pije')" role="tab">Pije</button>
+    <button class="tab-btn" onclick="showTab('embelsira')" role="tab">Ëmbëlsira</button>
+  </div>
+</section>
 
-        <a href="drinks.html">
-        <div class="card3">
-            <h2 data-i18n="pije">Pije</h2>
-        </div>
-    </a> 
+<!-- ══════════════ PIZZA ══════════════ -->
+<section class="menu-section active" id="tab-pizza">
+  <div class="section-header">
+    <h2>Pizza</h2>
+    <p>Brumë artizanal, pjekur në furrë druri</p>
+    <div class="section-divider"></div>
+  </div>
 
-        <a href="desert.html">
-        <div class="card4">
-            <h2 data-i18n="dessert">Desert</h2>
-        </div>
-    </a> 
-        
+  <p class="cat-heading">Pizza</p>
+
+  <div class="menu-item">
+    <div class="item-info"><div class="item-name">Elite</div><div class="item-desc">Domate, djathë, kërpudha, suxhuk, mish të tharë, ullinj, vezë</div></div>
+    <div class="item-right">
+      <span class="item-price">320 / 160</span>
+      <button class="ar-btn" onclick="openAR('model-elite')">
+        <span class="ar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></span>
+        AR
+      </button>
+      <model-viewer id="model-elite" class="ar-model" src="models/elite.glb" ar camera-controls auto-rotate></model-viewer>
     </div>
-    <footer id="footer">
-        <p> &copy; 2023 Elitte. All rights reserved.</p>
-    </footer>
+  </div>
+
+  <div class="menu-item">
+    <div class="item-info"><div class="item-name">Margarita</div><div class="item-desc">Domate, djathë</div></div>
+    <div class="item-right">
+      <span class="item-price">260 / 150</span>
+      <button class="ar-btn" onclick="openAR('model-margarita')">
+        <span class="ar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></span>
+        AR
+      </button>
+      <model-viewer id="model-margarita" class="ar-model" src="models/margarita.glb" ar camera-controls auto-rotate></model-viewer>
+    </div>
+  </div>
+
+  <div class="menu-item">
+    <div class="item-info"><div class="item-name">Fungi</div><div class="item-desc">Domate, djathë, kërpudha</div></div>
+    <div class="item-right">
+      <span class="item-price">290 / 160</span>
+      <button class="ar-btn" onclick="openAR('model-fungi')">
+        <span class="ar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></span>
+        AR
+      </button>
+      <model-viewer id="model-fungi" class="ar-model" src="models/pizza_fungi.glb" ar camera-controls auto-rotate></model-viewer>
+    </div>
+  </div>
+
+  <div class="menu-item">
+    <div class="item-info"><div class="item-name">Tono</div><div class="item-desc">Domate, djathë, tuna, qepë</div></div>
+    <div class="item-right">
+      <span class="item-price">300 / 160</span>
+      <button class="ar-btn" onclick="openAR('model-tono')">
+        <span class="ar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></span>
+        AR
+      </button>
+      <model-viewer id="model-tono" class="ar-model" src="models/tuna.glb" ar camera-controls auto-rotate></model-viewer>
+    </div>
+  </div>
+
+  <div class="menu-item">
+    <div class="item-info"><div class="item-name">Proshuto</div><div class="item-desc">Domate, djathë, proshutë</div></div>
+    <div class="item-right">
+      <span class="item-price">300 / 160</span>
+      <button class="ar-btn" onclick="openAR('model-proshuto')">
+        <span class="ar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></span>
+        AR
+      </button>
+      <model-viewer id="model-proshuto" class="ar-model" src="models/proshuto.glb" ar camera-controls auto-rotate></model-viewer>
+    </div>
+  </div>
+
+  <div class="menu-item">
+    <div class="item-info"><div class="item-name">Sallameti</div><div class="item-desc">Domate, djathë, suxhuk</div></div>
+    <div class="item-right">
+      <span class="item-price">300 / 160</span>
+      <button class="ar-btn" onclick="openAR('model-sallameti')">
+        <span class="ar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></span>
+        AR
+      </button>
+      <model-viewer id="model-sallameti" class="ar-model" src="models/salameti.glb" ar camera-controls auto-rotate></model-viewer>
+    </div>
+  </div>
+
+  <div class="menu-item">
+    <div class="item-info"><div class="item-name">Calabrese</div><div class="item-desc">Domate, djathë, kërpudha, suxhuk / mish të tharë</div></div>
+    <div class="item-right">
+      <span class="item-price">310 / 160</span>
+      <button class="ar-btn" onclick="openAR('model-calabrese')">
+        <span class="ar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></span>
+        AR
+      </button>
+      <model-viewer id="model-calabrese" class="ar-model" src="models/calabrese.glb" ar camera-controls auto-rotate></model-viewer>
+    </div>
+  </div>
+
+  <div class="menu-item">
+    <div class="item-info"><div class="item-name">Toscana</div><div class="item-desc">Domate, djathë, mish të tharë / suxhuk</div></div>
+    <div class="item-right">
+      <span class="item-price">300 / 160</span>
+      <button class="ar-btn" onclick="openAR('model-toscana')">
+        <span class="ar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></span>
+        AR
+      </button>
+      <model-viewer id="model-toscana" class="ar-model" src="models/toscana.glb" ar camera-controls auto-rotate></model-viewer>
+    </div>
+  </div>
+
+  <div class="menu-item">
+    <div class="item-info"><div class="item-name">Vesuvio</div><div class="item-desc">Domate, djathë, kërpudha, suxhuk</div></div>
+    <div class="item-right">
+      <span class="item-price">300 / 160</span>
+      <button class="ar-btn" onclick="openAR('model-vesuvio')">
+        <span class="ar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></span>
+        AR
+      </button>
+      <model-viewer id="model-vesuvio" class="ar-model" src="models/vesuvio.glb" ar camera-controls auto-rotate></model-viewer>
+    </div>
+  </div>
+
+  <div class="menu-item">
+    <div class="item-info"><div class="item-name">Roma</div><div class="item-desc">Domate, djathë, kërpudha, mish të tharë</div></div>
+    <div class="item-right">
+      <span class="item-price">300 / 160</span>
+      <button class="ar-btn" onclick="openAR('model-roma')">
+        <span class="ar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></span>
+        AR
+      </button>
+      <model-viewer id="model-roma" class="ar-model" src="models/roma.glb" ar camera-controls auto-rotate></model-viewer>
+    </div>
+  </div>
+
+  <p class="cat-heading">Ekstra</p>
+  <div class="menu-item"><div class="item-info"><div class="item-name">Majonez</div></div><div class="item-right"><span class="item-price">20</span></div></div>
+  <div class="menu-item"><div class="item-info"><div class="item-name">Ullinj</div></div><div class="item-right"><span class="item-price">50</span></div></div>
+  <div class="menu-item"><div class="item-info"><div class="item-name">Vezë</div></div><div class="item-right"><span class="item-price">10</span></div></div>
+  <div class="menu-item"><div class="item-info"><div class="item-name">Djathë</div></div><div class="item-right"><span class="item-price">30 / 60</span></div></div>
+  <div class="menu-item"><div class="item-info"><div class="item-name">Tuna shtesë</div></div><div class="item-right"><span class="item-price">60</span></div></div>
+  <div class="menu-item"><div class="item-info"><div class="item-name">Proshutë shtesë</div></div><div class="item-right"><span class="item-price">50</span></div></div>
+  <div class="menu-item"><div class="item-info"><div class="item-name">Suxhuk shtesë</div></div><div class="item-right"><span class="item-price">50</span></div></div>
+  <div class="menu-item"><div class="item-info"><div class="item-name">Kërpudha shtesë</div></div><div class="item-right"><span class="item-price">40</span></div></div>
+</section>
+
+<!-- ══════════════ SKARA ══════════════ -->
+<section class="menu-section" id="tab-skara">
+  <div class="section-header">
+    <h2>Skara</h2>
+    <p>Gatuar në thëngjill</p>
+    <div class="section-divider"></div>
+  </div>
+  <p class="cat-heading">Skara</p>
+
+  <div class="menu-item">
+    <div class="item-info"><div class="item-name">Biftek</div><div class="item-desc">Biftek viçi i pjekur në skarë.</div></div>
+    <div class="item-right">
+      <span class="item-price">200</span>
+    </div>
+  </div>
+
+  <div class="menu-item">
+    <div class="item-info"><div class="item-name">Ramstek</div><div class="item-desc">Ramstek viçi i butë dhe i lëngshëm.</div></div>
+    <div class="item-right">
+      <span class="item-price">250</span>
+    </div>
+  </div>
+
+  <div class="menu-item">
+    <div class="item-info"><div class="item-name">Mish vici</div><div class="item-desc">Mish viçi i pjekur në skarë.</div></div>
+    <div class="item-right">
+      <span class="item-price">230</span>
+    </div>
+  </div>
+
+  <div class="menu-item">
+    <div class="item-info"><div class="item-name">Stek Pule</div><div class="item-desc">Fileto pule e marinuar në skarë.</div></div>
+    <div class="item-right">
+      <span class="item-price">350</span>
+    </div>
+  </div>
+
+  
+
+
+
+  <div class="menu-item">
+    <div class="item-info"><div class="item-name">Gishta Pule</div><div class="item-desc">Fileto pule krokante të skuqura.</div></div>
+    <div class="item-right">
+      <span class="item-price">280</span>
+    </div>
+  </div>
+
+
+
+
+  <div class="menu-item">
+    <div class="item-info"><div class="item-name">Hamburger</div><div class="item-desc">Hamburger me mish të freskët viçi.</div></div>
+    <div class="item-right">
+      <span class="item-price">130</span>
+    </div>
+  </div>
+
+
+  <div class="menu-item">
+    <div class="item-info"><div class="item-name">Cheese Burger</div><div class="item-desc">Hamburger me djathë të shkrirë.</div></div>
+    <div class="item-right">
+      <span class="item-price">150</span>
+    </div>
+  </div>
+
+
+  <div class="menu-item">
+    <div class="item-info"><div class="item-name">Qebap 1/2</div><div class="item-desc">5 qebapë të pjekur në skarë.</div></div>
+    <div class="item-right">
+      <span class="item-price">130</span>
+    </div>
+  </div>
+
+
+  <div class="menu-item">
+    <div class="item-info"><div class="item-name">Qebap</div><div class="item-desc">10 qebapë të pjekur në skarë.</div></div>
+    <div class="item-right">
+      <span class="item-price">250</span>
+    </div>
+  </div>
+
+
+  <div class="menu-item">
+    <div class="item-info"><div class="item-name">Qebap 15</div><div class="item-desc">15 qebapë të pjekur në skarë.
+    </div></div>
+    <div class="item-right">
+      <span class="item-price">320</span>
+    </div>
+  </div>
+
+
+  <div class="menu-item">
+    <div class="item-info"><div class="item-name">Pleskavice</div><div class="item-desc">Pleskavicë tradicionale e pjekur në skarë.</div></div>
+    <div class="item-right">
+      <span class="item-price">250</span>
+    </div>
+  </div>
+
+
+  <div class="menu-item">
+    <div class="item-info"><div class="item-name">Pleskavice Sharri</div><div class="item-desc">Pleskavicë e mbushur me djathë.</div></div>
+    <div class="item-right">
+      <span class="item-price">280</span>
+    </div>
+  </div>
+
+
+  <div class="menu-item">
+    <div class="item-info"><div class="item-name">Razhnic</div><div class="item-desc">Copëza mishi të marinuara dhe të pjekura në skarë.</div></div>
+    <div class="item-right">
+      <span class="item-price">350</span>
+    </div>
+  </div>
+
+
+  <div class="menu-item">
+    <div class="item-info"><div class="item-name">Racion Pomfrit</div><div class="item-desc">Patate të skuqura krokante.</div></div>
+    <div class="item-right">
+      <span class="item-price">80</span>
+    </div>
+  </div>
+
+
+  <p class="cat-heading">Ekstra</p>
+  <div class="menu-item"><div class="item-info"><div class="item-name">Sos</div></div><div class="item-right"><span class="item-price">20</span></div></div>
+  <div class="menu-item"><div class="item-info"><div class="item-name">Ajvar</div></div><div class="item-right"><span class="item-price">50</span></div></div>
+  <div class="menu-item"><div class="item-info"><div class="item-name">Pavllak</div></div><div class="item-right"><span class="item-price">10</span></div></div>
+  <div class="menu-item"><div class="item-info"><div class="item-name">Fogace</div></div><div class="item-right"><span class="item-price">30 / 60</span></div></div>
+  <div class="menu-item"><div class="item-info"><div class="item-name">Lepinje</div></div><div class="item-right"><span class="item-price">30</span></div></div>
+  
+</section>
+
+<!-- ══════════════ PIJE ══════════════ -->
+<section class="menu-section" id="tab-pije">
+  <div class="section-header">
+    <h2>Pije</h2>
+    <p>Freskuese &amp; të ngrohta</p>
+    <div class="section-divider"></div>
+  </div>
+  <p class="cat-heading">Pije të Ftohta</p>
+
+  <div class="menu-item">
+    <div class="item-info"><div class="item-name">Coca Cola</div><div class="item-desc">0.25l / 0.33l</div></div>
+    <div class="item-right">
+      <span class="item-price">80</span>
+    </div>
+  </div>
+
+  <div class="menu-item">
+    <div class="item-info"><div class="item-name">Fanta Orange</div><div class="item-desc">0.25l</div></div>
+    <div class="item-right">
+      <span class="item-price">80</span>
+    </div>
+  </div>
+
+
+  <div class="menu-item">
+    <div class="item-info"><div class="item-name">Fanta Shokata</div><div class="item-desc">0.25l</div></div>
+    <div class="item-right">
+      <span class="item-price">80</span>
+    </div>
+  </div>
+
+
+  <div class="menu-item">
+    <div class="item-info"><div class="item-name">Schweppes</div><div class="item-desc">0.25l</div></div>
+    <div class="item-right">
+      <span class="item-price">80</span>
+    </div>
+  </div>
+
+  <div class="menu-item">
+    <div class="item-info"><div class="item-name">Schweppes Tonic</div><div class="item-desc">0.25l</div></div>
+    <div class="item-right">
+      <span class="item-price">80</span>
+    </div>
+  </div>
+
+  <div class="menu-item">
+    <div class="item-info"><div class="item-name">Sprite</div><div class="item-desc">0.25l</div></div>
+    <div class="item-right">
+      <span class="item-price">80</span>
+    </div>
+  </div>
+
+
+  <div class="menu-item">
+    <div class="item-info"><div class="item-name">Cockta</div><div class="item-desc">0.33l</div></div>
+    <div class="item-right">
+      <span class="item-price">80</span>
+    </div>
+  </div>
+
+  <div class="menu-item">
+    <div class="item-info"><div class="item-name">Ujë me gaz</div><div class="item-desc">0.25l / 1l</div></div>
+    <div class="item-right">
+      <span class="item-price">50 / 100</span>
+    </div>
+  </div>
+
+  <div class="menu-item">
+    <div class="item-info"><div class="item-name">Ujë pa gaz</div><div class="item-desc">0.25l / 1l</div></div>
+    <div class="item-right">
+      <span class="item-price">50 / 100</span>
+    </div>
+  </div>
+
+   <div class="menu-item">
+    <div class="item-info"><div class="item-name">Leng frutash</div><div class="item-desc">0.25l</div></div>
+    <div class="item-right">
+      <span class="item-price">80</span>
+    </div>
+  </div>
+
+  <p class="cat-heading">Pije të Ngrohta</p>
+
+  <div class="menu-item">
+    <div class="item-info"><div class="item-name">Espresso</div></div>
+    <div class="item-right">
+      <span class="item-price">50</span>
+    </div>
+  </div>
+
+  <div class="menu-item">
+    <div class="item-info"><div class="item-name">Makiato</div></div>
+    <div class="item-right">
+      <span class="item-price">50</span>
+    </div>
+  </div>
+
+  <div class="menu-item">
+    <div class="item-info"><div class="item-name">Çaj i nxehte</div></div>
+    <div class="item-right">
+      <span class="item-price">50</span>
+    </div>
+  </div>
+
+
+  <div class="menu-item">
+    <div class="item-info"><div class="item-name">Qumesht</div></div>
+    <div class="item-right">
+      <span class="item-price">50</span>
+    </div>
+  </div>
+
+  <div class="menu-item">
+    <div class="item-info"><div class="item-name">Kakao</div></div>
+    <div class="item-right">
+      <span class="item-price">50</span>
+    </div>
+  </div>
+
+  <div class="menu-item">
+    <div class="item-info"><div class="item-name">Kafe e bardhe</div></div>
+    <div class="item-right">
+      <span class="item-price">50</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ ËMBËLSIRA ══════════════ -->
+<section class="menu-section" id="tab-embelsira">
+  <div class="section-header">
+    <h2>Ëmbëlsira</h2>
+    <p>Ëmbëlsi të shtëpisë</p>
+    <div class="section-divider"></div>
+  </div>
+  <p class="cat-heading">Ëmbëlsira</p>
+
+  <div class="menu-item">
+    <div class="item-info"><div class="item-name">Trilece</div><div class="item-desc">Recetë klasike italiane.</div></div>
+    <div class="item-right">
+      <span class="item-price">50</span>
+    </div>
+  </div>
+
+  <div class="menu-item">
+    <div class="item-info"><div class="item-name">Embelsire shtepie</div><div class="item-desc">Ëmbëlsirë e freskët e përgatitur sipas recetës së shtëpisë.</div></div>
+    <div class="item-right">
+      <span class="item-price">50</span>
+    </div>
+  </div>
+
+   <div class="menu-item">
+    <div class="item-info"><div class="item-name">Krem me kadaif</div><div class="item-desc">Krem i butë i kombinuar me kadaif krokant.</div></div>
+    <div class="item-right">
+      <span class="item-price">50</span>
+    </div>
+  </div>
+
+  <div class="menu-item">
+    <div class="item-info"><div class="item-name">Krem brule</div><div class="item-desc">Krem vanilje me shtresë karameli të karamelizuar.</div></div>
+    <div class="item-right">
+      <span class="item-price">60</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer>
+  <div class="footer-logo"><span>E</span></div>
+  <p class="footer-copy">Elite</p>
+  <p class="footer-copy" style="margin-top:0.25rem;">© 2026 Elite. Të gjitha të drejtat e rezervuara.</p>
+  
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  const hero      = document.getElementById('hero');
+  const stickyBar = document.getElementById('sticky-tabs');
+
+  const obs = new IntersectionObserver(([entry]) => {
+    stickyBar.classList.toggle('visible', !entry.isIntersecting);
+    stickyBar.setAttribute('aria-hidden', entry.isIntersecting ? 'true' : 'false');
+  }, { threshold: 0.05 });
+  obs.observe(hero);
+
+  function showTab(tabId) {
+    document.querySelectorAll('.menu-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + tabId).classList.add('active');
+    document.querySelectorAll('.tab-btn').forEach(b => {
+      if (b.getAttribute('onclick') === `showTab('${tabId}')`) {
+        b.classList.add('active');
+        b.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
+      }
+    });
+    const section = document.getElementById('tab-' + tabId);
+    const offset  = stickyBar.classList.contains('visible') ? stickyBar.offsetHeight + 8 : 0;
+    window.scrollTo({ top: section.getBoundingClientRect().top + window.scrollY - offset, behavior: 'smooth' });
+  }
+
+  function openAR(modelId) {
+    const model = document.getElementById(modelId);
+    if (model) model.activateAR();
+  }
+</script>
 </body>
-<script src="index.js"></script>
 </html>
